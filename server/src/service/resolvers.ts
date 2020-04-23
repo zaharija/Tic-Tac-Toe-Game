@@ -16,6 +16,7 @@ export const resolvers = {
     },
     game: async (perent, { id }) => {
       const game = await dao.getGame({ id: id })
+      console.log(game)
       if(game) {
         return game
       }
@@ -49,7 +50,7 @@ export const resolvers = {
           if(player.inGame) {
             const game = await dao.getGame({ id: player.inGame })
             if(game) {
-              if(game.playerOne.id === player.id) {
+              if(game.playerOne === player.id) {
                 if(game.playerTwo) {
                   const p2 = await dao.getPlayer({ id: game.playerTwo})
                   p2.inGame = null
@@ -76,7 +77,6 @@ export const resolvers = {
     },
     createGame: async (perent, { multiplayer, password, token }) => {
       const player = await dao.getPlayer({ token: token })
-      console.log(player)
       if(!player.inGame) {
         const game = await dao.postGame(helper.createNewGame(multiplayer, password, player))
         player.inGame = game.id
@@ -94,7 +94,7 @@ export const resolvers = {
     joinGame: async (perent, { id, password, token }) => {
       const game = await dao.getGame({ id: id })
       const player = await dao.getPlayer({ token: token })
-      if(game && game.multiplayer && game.playerOne.id != player.id) {
+      if(game && game.multiplayer && game.playerOne != player.id) {
         if(game.password) {
           if(helper.compareHash(password, game.password)) {
             player.inGame = game.id

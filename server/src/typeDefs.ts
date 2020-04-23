@@ -11,7 +11,7 @@ export const typeDefs = gql`
     id: ID
     multiplayer: Boolean
     password: String
-    playerOne: Player
+    playerOne: ID
     playerTwo: ID
     playerOneMoves: String
     playerTwoMoves: String

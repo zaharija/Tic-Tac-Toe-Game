@@ -4,21 +4,24 @@ export const returnWinner = (game: Game) => {
   const p1 = game.playerOneMoves
   const p2 = game.playerTwoMoves
   const all = p1 + p2
-  if(p1.length >= 3) {
+  if(p1.length >= 3 && p1.length <= 5) {
     if(checkPlayer(p1)) {
+      console.log("P1 Winner")
       game.winner = 'playerOne'
       return game
     }
   }
 
-  if(p2.length >= 3) {
+  if(p2.length >= 3 && p2.length <= 5) {
     if(checkPlayer(p2)) {
+      console.log("P2 Winner")
       game.winner = 'playerTwo'
       return game
     }
   }
 
-  if(checkBoard(all)) {
+  if(all.length >= 9) {
+    console.log("Tie")
     game.winner = 'tie'
     return game
   }
@@ -27,23 +30,27 @@ export const returnWinner = (game: Game) => {
 }
 
 export const aiMove = (game: Game) => {
-  const p1 = game.playerOneMoves
-  const p2 = game.playerTwoMoves
-  const all = p1 + p2
-  const possible = checkMove(all)
-  for(let i = 1; i < 10; i++) {
-    let p1Flag = p1 + i
-    let p2Flag = p2 + i
-    if(checkPlayer(p2Flag) && possible.includes(''+i)) {
-      game.playerTwoMoves += i
-      return game
+  if(!game.winner) {
+    const p1 = game.playerOneMoves
+    const p2 = game.playerTwoMoves
+    const all = p1 + p2
+    const possible = checkMove(all)
+    for(let i = 1; i < 10; i++) {
+      let p1Flag = p1 + i
+      let p2Flag = p2 + i
+      if(checkPlayer(p2Flag) && possible.includes(''+i)) {
+        console.log(i)
+        game.playerTwoMoves += i
+        return game
+      }
+      if(checkPlayer(p1Flag) && possible.includes(''+i)) {
+        console.log(i)
+        game.playerTwoMoves += i
+        return game
+      }
     }
-    if(checkPlayer(p1Flag) && possible.includes(''+i)) {
-      game.playerTwoMoves += i
-      return game
-    }
+    game.playerTwoMoves += possible[Math.floor(Math.random() * possible.length)]
   }
-  game.playerTwoMoves += possible[Math.floor(Math.random() * possible.length)]
   return game
 }
 
@@ -88,9 +95,9 @@ const checkPlayer = (p => {
 const checkBoard = (board: string) => {
   let flag = true
   for (let i = 1; i < 10; i++) {
-      if(board.indexOf(''+i) != -1) {
-        flag = false
-      }
+    if(board.indexOf(''+i) != -1) {
+      flag = false
+    }
   }
   return flag
 }

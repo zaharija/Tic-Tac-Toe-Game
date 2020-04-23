@@ -19,7 +19,7 @@ export const createNewGame = (multiplayer: boolean, password: string, playerOne:
     return {
       multiplayer: multiplayer,
       password: bcrypt.hashSync(password, 5),
-      playerOne: playerOne,
+      playerOne: playerOne.id,
       playerOneMoves: "",
       playerTwoMoves: ""
     }
@@ -27,7 +27,7 @@ export const createNewGame = (multiplayer: boolean, password: string, playerOne:
   return {
     multiplayer: multiplayer,
     password: null,
-    playerOne: playerOne,
+    playerOne: playerOne.id,
     playerOneMoves: "",
     playerTwoMoves: ""
   }

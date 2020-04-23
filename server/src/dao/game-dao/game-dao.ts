@@ -2,7 +2,7 @@ import { Game } from '../../entity/Game'
 
 export const getGame = async (object: object) => {
   try {
-    return await Game.findOne(object, { relations: ['playerOne'] })
+    return await Game.findOne(object)
   }
   catch (e) {
     throw e

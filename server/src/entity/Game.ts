@@ -1,5 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, BaseEntity, OneToOne } from "typeorm";
-import { Player } from './Player'
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm"
 
 @Entity('games')
 export class Game extends BaseEntity {
@@ -13,9 +12,8 @@ export class Game extends BaseEntity {
     @Column({ nullable: true })
     password: string
 
-    @OneToOne(() => Player)
-    @JoinColumn()
-    playerOne: Player
+    @Column()
+    playerOne: number
 
     @Column({ nullable: true })
     playerTwo: number

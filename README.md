@@ -32,6 +32,7 @@ Login/registration is required to play the game.
 User that exists, and has a session token can create or join existing game.
 Games can be singleplayer or multiplayer - which can be created with or without a password to join requirement.
 Tic-tac-toe move is made by sending a next move position - a number between 1 and 9 that corresponds with a square on a board.
+Logging out leaves the current game. Gameless users can create a new game.
 
 Project structure:
 -modules
